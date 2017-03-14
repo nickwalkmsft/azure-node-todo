@@ -15,7 +15,7 @@ export const DEFAULT_CONFIG: pg.PoolConfig = {
     port: process.env.PGPORT || 5432,
     max: process.env.PGMAXCLIENTS || 10,
     idleTimeoutMillis: process.env.PGIDLETIMEOUT || 30000,
-    ssl: true,
+    ssl: false,
 };
 
 export class PostgresService {
@@ -61,7 +61,7 @@ export class PostgresService {
         }
 
         // Create database
-        results = await client.query(`CREATE DATABSE ${newDatabaseName}`);
+        results = await client.query(`CREATE DATABASE ${newDatabaseName}`);
 
         // Double check we exists
         results = await client.query("select datname from pg_database where datname = $1", [newDatabaseName]);
